@@ -16,6 +16,9 @@ try:
     port = os.open('\\\\.\\COM5', os.O_RDWR | os.O_BINARY)
     print(f"Port opened with handle: {port}")
     
+    # Wait for port to stabilize
+    time.sleep(1)
+    
     # Send download mode command first time
     download_cmd = bytearray([0xEF, 0x56, 0x80, 0x3B])
     print(f"Sending initial download command: {hex_dump(download_cmd)}")
@@ -86,6 +89,12 @@ try:
         # Read close response
         close_response = os.read(port, 4)
         print(f"Close response: {hex_dump(close_response)}")
+        
+        # Send restart command to return to logo screen
+        restart_cmd = bytearray([0x8B, 0x56, 0x00, 0x1F])
+        print(f"\nSending restart command: {hex_dump(restart_cmd)}")
+        os.write(port, restart_cmd)
+        time.sleep(1)  # Wait for restart to take effect
     
     # Close the port
     os.close(port)

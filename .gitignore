@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -21,21 +20,30 @@ wheels/
 .installed.cfg
 *.egg
 
-# Downloaded data
-tech2_data.bin
+# Virtual Environment
+venv/
+env/
+ENV/
 
 # IDE
-.vscode/
 .idea/
+.vscode/
 *.swp
 *.swo
 
-# Environment
-.env
-venv/
-ENV/
+# Project specific
+data/
+*.bin
+logs/
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Downloaded data
+tech2_data.bin
 
 # Windows
-Thumbs.db
 ehthumbs.db
 Desktop.ini 

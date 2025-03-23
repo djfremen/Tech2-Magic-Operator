@@ -1,0 +1,72 @@
+Tech2 Serial Connection Workflow
+==============================
+
+1. Initial Connection Setup
+--------------------------
+- Open COM port in binary read/write mode
+- No flow control settings required
+- Default baud rate: 38400
+- Wait 1 second after opening for port stabilization
+
+2. Download Mode Initialization
+-----------------------------
+a) First Command:
+   - Send: EF 56 80 3B
+   - Wait 2 seconds after sending
+   - No response expected
+
+b) Verification Command:
+   - Send same command again: EF 56 80 3B
+   - Wait for 4-byte response
+   - Expected response: EF 56 01 BA
+   - Timeout: 8 seconds
+
+3. Restart Sequence
+------------------
+a) Send Restart Command:
+   - Command: 8B 56 00 1F
+   - Close connection immediately after sending
+   - No response wait needed
+   - Tech2 will process restart independently
+
+4. Timing Parameters
+-------------------
+- Port stabilization: 1 second
+- Download mode delay: 2 seconds
+- Verification timeout: 8 seconds
+- No wait needed after restart command
+
+5. Success Indicators
+--------------------
+- Port opens successfully
+- Download mode command sent successfully
+- Verification response received (EF 56 01 BA)
+- Restart command sent successfully
+- Connection closes cleanly
+
+6. Error Handling
+----------------
+- Port open failures
+- Command send failures
+- Response timeouts
+- Invalid responses
+- Connection close failures
+
+7. Key Points
+------------
+- Direct binary port access
+- No flow control needed
+- Immediate connection close after restart
+- Tech2 processes restart independently
+- No permission issues with direct port access
+
+8. Example Command Sequence
+--------------------------
+1. Open COM5
+2. Wait 1s
+3. Send: EF 56 80 3B
+4. Wait 2s
+5. Send: EF 56 80 3B
+6. Wait for: EF 56 01 BA
+7. Send: 8B 56 00 1F
+8. Close connection 
